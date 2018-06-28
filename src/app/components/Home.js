@@ -7,20 +7,33 @@ export class Home extends React.Component {
         super();
         this.state = {
             age: props.age,
-            status:0
+            status: 0,
+            homeLink: props.initialLinkName
         };
         setTimeout(() => {
             this.setState({
-               status: 1
+                status: 1
             });
         }, 3000);
     }
 
-    onMakeOlder() {
-     this.setState({
-         age: this.state.age + 3
-     });
+    onMakeOlder = () => {
+        this.setState({
+            age: this.state.age + 3
+        });
     }
+
+    onChangeNameLink = () => {
+        console.log(this.state.homeLink);
+        this.props.changeLink(this.state.homeLink)
+    }
+
+    onHandleChange = (event) => {
+        this.setState({
+            homeLink: event.target.value
+        });
+    }
+
     render() {
         return (
             <div>
@@ -32,6 +45,14 @@ export class Home extends React.Component {
                     <button onClick={() => this.onMakeOlder()} className="btn btn-primary"> Make me Older </button>
                     <hr />
                     <button onClick={this.props.greet} className="btn btn-primary"> Greetings! </button>
+                    <hr />
+                    <input type="text" 
+                           value={this.state.homeLink} 
+                           onChange={(event) => this.onHandleChange(event)}
+                           
+                           />
+                    <button onClick={this.onChangeNameLink.bind(this)} className="btn btn-success"> Change Header Link </button>
+
                 </div>
 
                 {/* <h2> {this.props.title} </h2>
